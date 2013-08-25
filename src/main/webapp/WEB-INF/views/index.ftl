@@ -29,7 +29,7 @@
 <li>
 	<#switch content.contentType!>
 	<#case "DIRECTORY">
-		<a href="${root!}/${content.name}/">${content.name}</a>
+		<a href="/tree/${root!}${root?has_content?string("/", "")}${content.name}/">${content.name}</a>
 		<#break>
 	<#case "AUDIO">
 		<audio src="/file/${root!}${root?has_content?string("/", "")}${content.name}">非対応の音声形式です。</audio>
