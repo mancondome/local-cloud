@@ -20,6 +20,7 @@ public class TreeController extends AbstractController {
 	/** URIパスのプレフィックス */
 	static final String URI_PREFIX = "/tree";
 
+	/** {@link ContentService} */
 	@Autowired
 	private ContentService contentService;
 

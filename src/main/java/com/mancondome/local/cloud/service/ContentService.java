@@ -1,9 +1,6 @@
 package com.mancondome.local.cloud.service;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import com.mancondome.local.cloud.dto.FileContent;
 import com.mancondome.local.cloud.dto.FileInformation;
 import com.mancondome.local.cloud.type.ContentType;
 import com.mancondome.local.cloud.util.FileValidator;
@@ -21,6 +19,7 @@ import com.mancondome.local.cloud.util.FileValidator;
  */
 @Service
 public class ContentService {
+	/** コンテンツディレクトリのルートパス */
 	@Value("${index.path}")
 	private String rootPath;
 
@@ -76,9 +75,9 @@ public class ContentService {
 	/**
 	 * ファイルの内容を取得する。
 	 * @param path ファイルパス
-	 * @return ファイルのバイト配列
+	 * @return {@link FileContent}
 	 */
-	public byte[] getFile(String path) {
+	public FileContent getFile(String path) {
 		Assert.notNull(path);
 
 		final File file = new File(this.rootPath + path);
@@ -87,12 +86,6 @@ public class ContentService {
 			throw new IllegalStateException("Cannot open the file. : " + path);
 		}
 
-		final ByteBuffer buffer = ByteBuffer.allocate((int) file.length());
-		try {
-			FileChannel.open(file.toPath()).read(buffer);
-			return buffer.array();
-		} catch (IOException e) {
-			throw new IllegalStateException(e);
-		}
+		return new FileContent(file);
 	}
 }

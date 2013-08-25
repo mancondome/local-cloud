@@ -1,11 +1,7 @@
 package com.mancondome.local.cloud.controller;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +34,7 @@ public class FileController extends AbstractController {
 	/** ファイルを利用できないときのエラーメッセージ */
 	private static final String FILE_UNAVAILABLE_MESSAGE = "The file is unavailable. : ";
 
+	/** {@link ContentService} */
 	@Autowired
 	private ContentService contentService;
 
@@ -63,26 +60,9 @@ public class FileController extends AbstractController {
 		response.setHeader(DISPOSITION_HEADER, String.format(FILE_NAME_FORMAT, file.getName()));
 
 		try (final OutputStream out = new BufferedOutputStream(response.getOutputStream())) {
-			out.write(this.contentService.getFile(path));
+			this.contentService.getFile(path).writeContent(out);
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
-		}
-	}
-
-	@RequestMapping("/test")
-	public void test(HttpServletRequest request, HttpServletResponse response) {
-		response.setContentType(FILE_CONTENT_TYPE);
-		response.setHeader(DISPOSITION_HEADER, String.format(FILE_NAME_FORMAT, "test.txt"));
-		try (OutputStream out = response.getOutputStream()) {
-			try (InputStream in = new BufferedInputStream(new FileInputStream(new File(
-					"//UBUNTU/share/音楽/KITUNE.mp3")))) {
-				final byte[] buffer = new byte[1024];
-				while (in.read(buffer) > 0) {
-					out.write(buffer);
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 }

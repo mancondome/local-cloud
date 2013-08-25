@@ -14,6 +14,7 @@ public class FileValidator {
 	/** ディレクトリが存在しないときのエラーメッセージ */
 	private static final String DIRECTORY_ABSENCE_MESSAGE = "The directory does not exists. : ";
 
+	/** 使用しない。 */
 	@Deprecated
 	private FileValidator() {
 	}
