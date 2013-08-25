@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration scan="true">
+	<!-- Console -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%date{yyyy/MM/dd HH:mm:ss.SSS} [%-5level] [%logger{30}] %message%n</Pattern>
+		</encoder>
+	</appender>
+	
+	<root>
+		<level value="info" />
+		<appender-ref ref="STDOUT" />
+	</root>
+
+	<!-- Loggers -->
+	<logger name="com.mancondome.local.cloud">
+		<level value="debug" />
+	</logger>
+
+	<!-- Loggers for external libraries -->
+	<logger name="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<level value="warn" />
+	</logger>
+	<logger name="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+		<level value="warn" />
+	</logger>
+	<logger name="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+		<level value="warn" />
+	</logger>
+	<logger name="org.springframework.beans.factory.support.DefaultListableBeanFactory">
+		<level value="warn" />
+	</logger>
+	<logger name="org.springframework.context.annotation.ClassPathBeanDefinitionScanner">
+		<level value="warn" />
+	</logger>
+	<logger name="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor">
+		<level value="warn" />
+	</logger>
+	<logger name="org.hibernate.validator.internal.util.Version">
+		<level value="warn" />
+	</logger>
+</configuration>
