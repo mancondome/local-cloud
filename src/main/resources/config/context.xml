@@ -3,17 +3,12 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx ="http://www.springframework.org/schema/tx"
 	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:task="http://www.springframework.org/schema/task"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
-		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
-		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.2.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
 
 	<context:component-scan base-package="com.mancondome.local.cloud"/>
@@ -22,25 +17,6 @@
 		<property name="locations" value="classpath:**.properties"/>
 	</bean>
 	<context:property-placeholder properties-ref="properties" />
-
-	<task:annotation-driven/>
-
-	<!-- メッセージリソース -->
-<!--	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-		<property name="basenames">
-			<list>
-				<value>classpath:messages/application</value>
-				<value>classpath:messages/enum</value>
-				<value>classpath:messages/validation</value>
-			</list>
-		</property>
-		<property name="cacheSeconds" value="0"/>
-	</bean>-->
-	<!-- メッセージリソースアクセスコンポーネント -->
-<!--	<bean id="messageSourceAccessor" class="org.springframework.context.support.MessageSourceAccessor">
-		<constructor-arg ref="messageSource"/>
-	</bean>
--->
 
 	<!-- View -->
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
@@ -63,34 +39,8 @@
 	<mvc:resources mapping="/img/**" location="/img/" />
 	<mvc:resources mapping="/favicon.ico" location="/favicon.ico" />
 	<mvc:view-controller path="/error/400" />
-	<mvc:view-controller path="/error/401" />
-	<mvc:view-controller path="/error/403" />
 	<mvc:view-controller path="/error/404" />
-	<mvc:view-controller path="/error/405" />
-	<mvc:view-controller path="/error/408" />
-	<mvc:view-controller path="/error/413" />
 	<mvc:view-controller path="/error/500" />
-	<mvc:view-controller path="/error/503" />
-
-<!--	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-		<property name="driverClassName" value="${jdbc.driverClass}" />
-		<property name="url" value="${jdbc.host}" />
-		<property name="username" value="${jdbc.user}" />
-		<property name="password" value="${jdbc.password}" />
-		<property name="initialSize" value="${jdbc.initialSize}" />
-		<property name="maxActive" value="${jdbc.maxActive}" />
-		<property name="maxIdle" value="${jdbc.maxIdle}" />
-		<property name="minIdle" value="${jdbc.minIdle}" />
-		<property name="maxWait" value="${jdbc.maxWait}" />
-		<property name="validationQuery" value="${jdbc.validationQuery}" />
-	</bean>
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation" value="classpath:config/mybatisConfig.xml" />
-	</bean>
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="jp.co.cyberagent.la.app.repository" />
-	</bean>-->
 
 	<!-- Logger -->
 	<bean id="logger" class="org.eclipse.jetty.util.log.Slf4jLog">
@@ -99,10 +49,5 @@
 
 
 	<!-- Filter -->
-
-	<!-- セッション上のActorの有効性チェックFilter -->
-<!-- 	<bean id="checkAvailableActorFilter" class="jp.co.cyberagent.la.core.web.filter.CheckAvailableActorFilter" autowire="byType">
-		<property name="targetActor" value="jp.co.cyberagent.la.app.domain.actor.GeneralActor"/>
-	</bean>-->
 
 </beans>
